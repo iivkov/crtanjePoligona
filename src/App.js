@@ -41,7 +41,8 @@ function App() {
 
   const drawInnerPolygon = (polygon, outerIndex) => {
     const points = polygon.map(point => `${point.x},${point.y}`).join(' ');
-    return <polygon key={outerIndex} points={points} fill="lime" stroke="blue" />;
+    // return <polygon key={outerIndex} points={points} fill="lime" stroke="blue" />;
+    return <polygon points={points} fill="lime" stroke="blue" />;
   };
 
   const handleDrawOuterPolygon = () => {
@@ -58,32 +59,34 @@ function App() {
 
   return (
     <div>
-      <h1>SVG Poligoni</h1>
+      <h1>SVG poligoni</h1>
       <div>
-        <h2>Vanjski Poligon</h2>
+        <h2>Vanjski poligon</h2>
         {outerPolygon.map((point, index) => (
           <div key={index}>
-            <input type="text" value={point.x} onChange={e => handleOuterPolygonChange(e, index, 'x')} placeholder="X" />
-            <input type="text" value={point.y} onChange={e => handleOuterPolygonChange(e, index, 'y')} placeholder="Y" />
+            <input type="number" step="0.1" value={point.x} onChange={e => handleOuterPolygonChange(e, index, 'x')} placeholder="X" />
+            <input type="number" step="0.1" value={point.y} onChange={e => handleOuterPolygonChange(e, index, 'y')} placeholder="Y" />
           </div>
         ))}
         <button onClick={handleDrawOuterPolygon}>Nacrtaj vanjski poligon</button>
       </div>
 
       <div>
-        <h2>Unutarnji Poligoni</h2>
+        <h2>Unutarnji poligoni</h2>
         {innerPolygons.map((polygon, outerIndex) => (
           <div key={outerIndex}>
             {polygon.map((point, innerIndex) => (
               <div key={innerIndex}>
                 <input
-                  type="text"
+                  type="number"
+                  step="0.1"
                   value={point.x}
                   onChange={e => handleInnerPolygonChange(e, outerIndex, innerIndex, 'x')}
                   placeholder="X"
                 />
                 <input
-                  type="text"
+                  type="number"
+                  step="0.1"
                   value={point.y}
                   onChange={e => handleInnerPolygonChange(e, outerIndex, innerIndex, 'y')}
                   placeholder="Y"
@@ -96,7 +99,7 @@ function App() {
         ))}
       </div>
 
-      <svg width="650" height="200" transform="scale(1, -1)" viewBox="0 0 630 200">
+      <svg width="658" height="180" transform="scale(1, -1)" viewBox="-4 -22 654 192">
         {drawnOuterPolygon && drawOuterPolygon()}
         {drawnInnerPolygons.map((drawn, index) => drawn && drawInnerPolygon(innerPolygons[index], index))}
       </svg>
@@ -105,3 +108,6 @@ function App() {
 }
 
 export default App;
+
+{/* <svg width="650" height="200" transform="scale(1, -1)" viewBox="0 0 630 200"></svg>
+<svg width="750" height="200" transform="scale(1, -1)" viewBox="0 0 630 150"></svg> */}
